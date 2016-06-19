@@ -1,20 +1,16 @@
-Flatdoc
+Makerville Knit
 =======
 
-Flatdoc is a small JavaScript file that fetches Markdown files and renders them
-as full pages. Essentially, it's the easiest
-way to make open source documentation from *Readme* files.
+Makerville Knit is a breakout board to build WiFi enabled things.
 
- * No server-side components
- * No build process needed
- * Deployable via GitHub Pages
- * Can fetch GitHub Readme files
- * Gorgeous default theme (and it's responsive)
- * Just create an HTML file and deploy!
 
-*Current version: [v0.9.0][dist]*
+* 32-bit Cortex M4F at 200Mhz
+* 4MB flash with XIP support, 512k RAM
+* 802.11 b/g/n with FCC, IC, CE certification
+* On board USB to serial converter for programming and console
+* UARTs, JTAG, GPIO, SSP, I2C, GPT, ADC, DAC
+* Supports open source tools like the GCC ARM toolchain, Eclipse IDE & OpenOCD debugger
 
-[![Build Status](https://travis-ci.org/rstacruz/flatdoc.svg?branch=gh-pages)](https://travis-ci.org/rstacruz/flatdoc)
 
 Getting started
 ---------------
@@ -225,7 +221,7 @@ The following projects have inspired Flatdoc.
 
  * [Stripe] - Flatdoc took inspiration on the look of their API documentation.
 
- * [DocumentUp] - This service has the same idea but does a hosted readme 
+ * [DocumentUp] - This service has the same idea but does a hosted readme
  parsing approach.
 
 Attributions
@@ -237,10 +233,10 @@ licensed under Creative Commons.
 Acknowledgements
 ----------------
 
-© 2013, 2014, Rico Sta. Cruz. Released under the [MIT 
+© 2013, 2014, Rico Sta. Cruz. Released under the [MIT
 License](http://www.opensource.org/licenses/mit-license.php).
 
-**Flatdoc** is authored and maintained by [Rico Sta. Cruz][rsc] with help from its 
+**Flatdoc** is authored and maintained by [Rico Sta. Cruz][rsc] with help from its
 [contributors][c].
 
  * [My website](http://ricostacruz.com) (ricostacruz.com)
