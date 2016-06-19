@@ -1,7 +1,9 @@
 Makerville Knit
 =======
 
-Makerville Knit is a breakout board to build WiFi enabled things.
+[Pre Order >][preorder]
+
+Knit is an industrial grade WiFi development board to build secure applications.
 
 
 * 32-bit Cortex M4F at 200Mhz
@@ -260,3 +262,4 @@ License](http://www.opensource.org/licenses/mit-license.php).
 [template]: https://github.com/rstacruz/flatdoc/raw/gh-pages/templates/template.html
 [blank]: https://github.com/rstacruz/flatdoc/raw/gh-pages/templates/blank.html
 [dist]: https://github.com/rstacruz/flatdoc/tree/gh-pages/v/0.9.0
+[preorder]: https://makerville.io/knit/early-access
