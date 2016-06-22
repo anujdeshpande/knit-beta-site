@@ -6,260 +6,130 @@ Makerville Knit
 Knit is an industrial grade WiFi development board to build secure applications.
 
 
+
 * 32-bit Cortex M4F at 200Mhz
 * 4MB flash with XIP support, 512k RAM
 * 802.11 b/g/n with FCC, IC, CE certification
 * On board USB to serial converter for programming and console
 * UARTs, JTAG, GPIO, SSP, I2C, GPT, ADC, DAC
-* Supports open source tools like the GCC ARM toolchain, Eclipse IDE & OpenOCD debugger
+* Open source development using the GCC ARM toolchain, Eclipse IDE & OpenOCD debugger
 
 
 Getting started
 ---------------
 
-Create a file based on the template, which has a bare DOM, link to the
-scripts, and a link to a theme. It will look something like this (not exact).
-For GitHub projects, simply place this file in your [GitHub pages] branch and
-you're all good to go.
+- Clone the SDK to your development machine
 
-*In short: just download this file and upload it somewhere.*
-
-The main JS and CSS files are also available in [npm] and [bower].
-
-[Default theme template >][template]
-
-[Blank template >][blank]
-
-[bower]: http://bower.io/search/?q=flatdoc
-[npm]: https://www.npmjs.org/package/flatdoc
-
-### Via GitHub
-
-To fetch a Github Repository's readme file, use the `Flatdoc.github` fetcher.
-This will fetch the Readme file of the repository's default branch.
-
-``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.github('USER/REPO')
-});
 ```
-
-You may also fetch another file other than the Readme file, just specify it as
-the 2nd parameter.
-
-``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.github('USER/REPO', 'Changelog.md')
-});
+git clone https://github.com/marvell-iot/aws_starter_sdk
 ```
+- Download the latest blob from the [releases](https://github.com/marvell-iot/aws_starter_sdk/releases) section
 
-After you've done this, you probably want to deploy it via [GitHub Pages].
+Pin Map
+---
 
-[GitHub Pages guide >][GitHub Pages]
+- Knit has 2 16 pin headers, which are breadboard friendly.
+- We have a total of 25 GPIOs along with 7 power related pins (5V/3V3/GND).
+- Knit also has a 4 pin header for easy SWD programming.
+- The header file where all the pin functions are defined is [mw300_pinmux.h](https://github.com/marvell-iot/aws_starter_sdk/blob/master/sdk/src/incl/sdk/drivers/mw300/mw300_pinmux.h)
 
-### Via a file
 
-You may also fetch a file. In this example, this fetches the file `Readme.md` in
-the same folder as the HTML file.
+<img src="./img/bb.jpg" width="470"></img>
 
-``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.file('Readme.md')
-});
 ```
+No     Fn 0         Fn 1       Fn 2        Fn 3       Fn 4       Fn 5
+6	  TDO	      GPIO6      I2C1_SDA	DIG_POR    RC32M      AUPLL_DIGTP0
+9	  TDI	      GPIO9	  UART2_TXD   SSP2_TXD   I2C1_SDA   AUPLL_DIGTP3
+10 	TRST_N       GPIO10	 UART2_RXD   SSP2_RXD   I2C1_SCL   PHY_MON0
+7	  TCK          GPIO7	  UART2_CTSn  SSP2_CLK   I2C0_SDA   AUPLL_DIGTP1
+8	  TMS	      GPIO8	  UART2_RTSn  SSP2_FRM   I2C0_SCL   AUPLL_DIGTP2
+25     XTAL32K_IN   GPIO25     I2C1_SDA			
+26     XTAL32K_OUT  GPIO26     I2C1_SCL			
+23     WAKE_UP1	 GPIO23     UART0_CTSn             SFLL_200N  COMP_IN_P
+22     WAKE_UP0	 GPIO22				
+GND						
+3	  GPIO3        GPT0_CH3   UART0_RXD   SSP0_RXD		
+2	  GPIO2        GPT0_CH2   UART0_TXD   SSP0_TXD		
+5V						
+GND						
+3V3		
+3V3				
 
-You may actually supply any URL here. It will be fetched via AJAX. This is
-useful for local testing.
-
-``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.file('http://yoursite.com/Readme.md')
-});
+No	Fn 0     Fn 1	      Fn 2               Fn 3                Fn 4	            Fn 5
+4     GPIO4	GPT0_CH4      I2C0_SDA           AUDIO_CLK		
+5     GPIO5	GPT0_CH5      I2C0_SCL			
+0     GPIO0	GPT0_CH0      UART0_CTSn         SSP0_CLK		
+1     GPIO1	GPT0_CH1      UART0_RTSn         SSP0_FRM		
+49	GPIO49   ADC0_IN7      UART2_RXD          SSP2_RXD            PHY_MON15
+               ACOMP_IN7
+48	GPIO48   ADC0_IN       UART2_TXD          SSP2_TXD            PHY_MON14
+               ACOMP_IN6
+47	GPIO47   ADC0_IN5      UART2_RTSn         SSP2_FRM            PHY_MON13
+               ACOMP_IN5
+46	GPIO46   ADC0_IN4      UART2_CTSn         SSP2_CLK            PHY_MON12
+               ACOMP_IN4
+GND						
+43	GPIO43   ADC0_IN1      UART1_RTSn         SSP1_FRM            TRACE_DATA1        PHY_MON9
+               ACOMP_IN1
+42	GPIO42   ADC0_IN0      UART1_CTSn         SSP1_CLK            TRACE_DATA0        PHY_MON8
+               ACOMP_IN0
+41	GPIO41   GAU_TRIGGER1  ACOMP0_EDGE_PULSE  ACOMP1_EDGE_PULSE   TRACE_CLKOUT
+24	OSC32K   GPIO24        UART0_RXD          GPT1_CH5            COMP_IN_N
+39	GPIO39   GPT3_CLKIN    UART1_RXD          SSP1_RXD            RC32M_CLKINb
+40	GPIO40   GAU_TRIGGER0  ACOMP0_GPIO_OUT    ACOMP1_GPIO_OUT		
+3v3
 ```
+- Color coded pinmaps <br/>[Header 1 >](./support/header1.png) [Header 2 >](./support/header2.png)
 
-How it works
-------------
+Products
+===
 
-Flatdoc is a hosted `.js` file (along with a theme and its assets) that you can
-add into any page hosted anywhere.
+These are some of the commercially available products that have been made using the 88MW300 WiFi microcontroller.
+<table style="width:100%">
+  <tr>
+    <td>Hello Barbie</td>
+    <td><a href="http://www.somersetrecon.com/blog/2015/11/20/hello-barbie-security-part-1-teardown">Teardown from Somerset Recon</a></td>
+    <td>This one uses the same module as Knit, AW CU300</td>
+  </tr>
+  <tr>
+    <td>Xiaomi Yeelight</td>
+    <td><a href="http://www.miui.com/thread-4260673-1-1.html">Teardown from miui.com (in Chinese)</a></td>
+    <td>This one uses a Mi module with 2MB of onboard flash</td>
+  </tr>
 
-#### All client-side
-
-There are no build scripts or 3rd-party services involved. Everything is done in
-the browser. Worried about performance? Oh, It's pretty fast.
-
-Flatdoc utilizes the [GitHub API] to fetch your project's Readme files. You may
-also configure it to fetch any arbitrary URL via AJAX.
-
-#### Lightning-fast parsing
-
-Next, it uses [marked], an extremely fast Markdown parser that has support for
-GitHub flavored Markdown.
-
-Flatdoc then simply renders *menu* and *content* DOM elements to your HTML
-document. Flatdoc also comes with a default theme to style your page for you, or
-you may opt to create your own styles.
-
-Markdown extras
----------------
-
-Flatdoc offers a few harmless, unobtrusive extras that come in handy in building
-documentation sites.
-
-#### Code highlighting
-
-You can use Markdown code fences to make syntax-highlighted text. Simply
-surround your text with three backticks. This works in GitHub as well.
-See [GitHub Syntax Highlighting][fences] for more info.
-
-    ``` html
-    <strong>Hola, mundo</strong>
-    ```
-
-#### Blockquotes
-
-Blockquotes show up as side figures. This is useful for providing side
-information or non-code examples.
-
-> Blockquotes are blocks that begin with `>`.
-
-#### Smart quotes
-
-Single quotes, double quotes, and double-hyphens are automatically replaced to
-their typographically-accurate equivalent. This, of course, does not apply to
-`<code>` and `<pre>` blocks to leave code alone.
-
-> "From a certain point onward there is no longer any turning back. That is the
-> point that must be reached."  
-> --Franz Kafka
-
-#### Buttons
-
-If your link text has a `>` at the end (for instance: `Continue >`), they show
-up as buttons.
-
-> [View in GitHub >][project]
-
-Customizing
-===========
-
-Basic
------
-
-### Theme options
-
-For the default theme (*theme-white*), You can set theme options by adding
-classes to the `<body>` element. The available options are:
-
-#### big-h3
-Makes 3rd-level headings bigger.
-
-``` html
-<body class='big-h3'>
-```
-
-#### no-literate
-Disables "literate" mode, where code appears on the right and content text
-appear on the left.
-
-``` html
-<body class='no-literate'>
-```
-
-#### large-brief
-Makes the opening paragraph large.
-
-``` html
-<body class='large-brief'>
-```
-
-### Adding more markup
-
-You have full control over the HTML file, just add markup wherever you see fit.
-As long as you leave `role='flatdoc-content'` and `role='flatdoc-menu'` empty as
-they are, you'll be fine.
-
-Here are some ideas to get you started.
-
- * Add a CSS file to make your own CSS adjustments.
- * Add a 'Tweet' button on top.
- * Add Google Analytics.
- * Use CSS to style the IDs in menus (`#acknowledgements + p`).
-
-### JavaScript hooks
-
-Flatdoc emits the events `flatdoc:loading` and `flatdoc:ready` to help you make
-custom behavior when the document loads.
-
-``` js
-$(document).on('flatdoc:ready', function() {
-  // I don't like this section to appear
-  $("#acknowledgements").remove();
-});
-```
-
-Full customization
-------------------
-
-You don't have to be restricted to the given theme. Flatdoc is just really one
-`.js` file that expects 2 HTML elements (for *menu* and *content*). Start with
-the blank template and customize as you see fit.
-
-[Get blank template >][template]
+</table>
 
 Misc
 ====
 
-Inspirations
-------------
+FAQs
+----
+- Is Knit OSHW (Open Source Hardware) ?
+  - Yes, we have released the schematic and PCB files under the [MIT](https://github.com/Makerville/knit/blob/master/LICENSE) license. You can find the files [here](https://github.com/Makerville/knit/tree/master/hardware).
+- When will it be available ?
+  - You can preorder the Knit as part of our early access program. [Pre Order >][preorder]
+- What will be the price?
+  - For early access developers the price will be 999₹ / $14.99
+- Where can I get more support ?
+  - For SDK related issues, you can join the Gitter [chat](https://gitter.im/marvell-iot/aws_starter_sdk) or raise an [issue](https://github.com/marvell-iot/aws_starter_sdk/issues)
 
-The following projects have inspired Flatdoc.
+Projects we <3 & use
+---
 
- * [Backbone.js] - Jeremy's projects have always adopted this "one page
- documentation" approach which I really love.
-
- * [Docco] - Jeremy's Docco introduced me to the world of literate programming,
- and side-by-side documentation in general.
-
- * [Stripe] - Flatdoc took inspiration on the look of their API documentation.
-
- * [DocumentUp] - This service has the same idea but does a hosted readme
- parsing approach.
-
-Attributions
-------------
-
-[Photo](http://www.flickr.com/photos/doug88888/2953428679/) taken from Flickr,
-licensed under Creative Commons.
+- ARM GCC toolchain
+- OpenOCD
+- KiCad EDA
+- Eclipse C/C++ IDE
 
 Acknowledgements
-----------------
+------------
 
-© 2013, 2014, Rico Sta. Cruz. Released under the [MIT
-License](http://www.opensource.org/licenses/mit-license.php).
+- Logo by [Cassie McKown](https://thenounproject.com/mckowncr/) under [CC by 3.0 US](http://creativecommons.org/licenses/by/3.0/us/)
+- Flatdoc site generator by [Rico Sta. Cruz](http://ricostacruz.com/)
 
-**Flatdoc** is authored and maintained by [Rico Sta. Cruz][rsc] with help from its
-[contributors][c].
 
- * [My website](http://ricostacruz.com) (ricostacruz.com)
- * [Github](http://github.com/rstacruz) (@rstacruz)
- * [Twitter](http://twitter.com/rstacruz) (@rstacruz)
 
-[rsc]: http://ricostacruz.com
-[c]:   http://github.com/rstacruz/flatdoc/contributors
 
-[GitHub API]: http://github.com/api
-[marked]: https://github.com/chjj/marked
-[Backbone.js]: http://backbonejs.org
-[dox]: https://github.com/visionmedia/dox
-[Stripe]: https://stripe.com/docs/api
-[Docco]: http://jashkenas.github.com/docco
-[GitHub pages]: https://pages.github.com
-[fences]:https://help.github.com/articles/github-flavored-markdown#syntax-highlighting
-[DocumentUp]: http://documentup.com
 
-[project]: https://github.com/rstacruz/flatdoc
-[template]: https://github.com/rstacruz/flatdoc/raw/gh-pages/templates/template.html
-[blank]: https://github.com/rstacruz/flatdoc/raw/gh-pages/templates/blank.html
-[dist]: https://github.com/rstacruz/flatdoc/tree/gh-pages/v/0.9.0
+[project]: https://github.com/makerville/knit
 [preorder]: https://makerville.io/knit/early-access
